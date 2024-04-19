@@ -1,8 +1,11 @@
 package com.market.persistence.entity;
 
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,4 +24,7 @@ public class Customer {
   private Integer phone;
   private String address;
   private String email;
+
+  @OneToMany(mappedBy = "customer")
+  private List<Buy> buys;
 }
