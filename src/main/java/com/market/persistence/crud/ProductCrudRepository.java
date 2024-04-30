@@ -8,7 +8,7 @@ import org.springframework.data.repository.CrudRepository;
 import com.market.persistence.entity.Product;
 
 public interface ProductCrudRepository extends CrudRepository<Product, Integer>{
-  List<Product> finByIdCategory(int idCategory);
-  List<Product> finByIdCategoryOrderByNameAsc(int idCategory);
+  List<Product> findByIdCategory(int idCategory);
+  List<Product> findByIdCategoryOrderByNameAsc(int idCategory);
   Optional<List<Product>> findByStockLessThanAndStatus(int stock, boolean status);
 }
