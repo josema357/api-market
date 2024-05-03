@@ -1,4 +1,4 @@
-package com.market.domain;
+package com.market.domain.model;
 
 import lombok.Getter;
 import lombok.Setter;
