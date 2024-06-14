@@ -1,4 +1,4 @@
-package com.market.persistence.entity;
+package com.api.market.persistence.entity;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -16,25 +16,25 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "buys")
+@Table(name = "compras")
 @Getter
 @Setter
-public class Buy {
+public class Compra {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
-  @Column(name = "customer_id")
-  private String customerId;
-  private LocalDateTime date;
-  @Column(name = "payment_method")
-  private String paymentMethod;
-  private String comment;
-  private String status;
+  @Column(name = "id_cliente")
+  private String idCliente;
+  private LocalDateTime fecha;
+  @Column(name = "metodo_pago")
+  private String metodoPago;
+  private String comentario;
+  private String estado;
 
   @ManyToOne
-  @JoinColumn(name = "customer_id" , insertable = false, updatable = false)
-  private Customer customer;
+  @JoinColumn(name = "id_cliente" , insertable = false, updatable = false)
+  private Cliente cliente;
 
-  @OneToMany(mappedBy = "buy")
-  private List<BuysProduct> products;
+  @OneToMany(mappedBy = "compra")
+  private List<ComprasProducto> productos;
 }

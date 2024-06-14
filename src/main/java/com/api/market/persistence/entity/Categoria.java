@@ -1,4 +1,4 @@
-package com.market.persistence.entity;
+package com.api.market.persistence.entity;
 
 import java.util.List;
 
@@ -15,13 +15,13 @@ import lombok.Setter;
 @Table(name = "categories")
 @Getter
 @Setter
-public class Category {
+public class Categoria {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
-  private String description;
-  private Boolean status;
+  private String descripcion;
+  private Boolean estado;
 
-  @OneToMany(mappedBy = "category")
-  private List<Product> products;
+  @OneToMany(mappedBy = "categoria")
+  private List<Producto> productos;
 }

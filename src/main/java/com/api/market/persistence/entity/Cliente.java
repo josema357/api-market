@@ -1,4 +1,4 @@
-package com.market.persistence.entity;
+package com.api.market.persistence.entity;
 
 import java.util.List;
 
@@ -11,20 +11,19 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "customers")
+@Table(name = "clientes")
 @Getter
 @Setter
-public class Customer {
+public class Cliente {
   @Id
   @Column(unique = true)
   private String id;
-  private String name;
-  @Column(name = "last_name")
-  private String lastName;
-  private Integer phone;
-  private String address;
-  private String email;
+  private String nombre;
+  private String apellido;
+  private Integer telefono;
+  private String direccion;
+  private String correo;
 
-  @OneToMany(mappedBy = "customer")
-  private List<Buy> buys;
+  @OneToMany(mappedBy = "cliente")
+  private List<Compra> compras;
 }

@@ -1,28 +1,28 @@
 -- -----------------------------------------------------
 -- Table "CATEGORIAS"
 -- -----------------------------------------------------
-CREATE TABLE  categories (
+CREATE TABLE  categorias (
   "id" SERIAL NOT NULL,
-  "description" VARCHAR(45) NOT NULL,
-  "status" BOOLEAN NOT NULL,
+  "descripcion" VARCHAR(45) NOT NULL,
+  "estado" BOOLEAN NOT NULL,
   PRIMARY KEY ("id"));
 
 
 -- -----------------------------------------------------
 -- Table "PRODUCTOS"
 -- -----------------------------------------------------
-CREATE TABLE  products (
+CREATE TABLE  productos (
   "id" SERIAL NOT NULL,
-  "name" VARCHAR(45) NULL,
-  "id_category" INT NOT NULL,
-  "barcode" VARCHAR(150) NULL,
-  "price" DECIMAL(16,2) NULL,
-  "stock" INT NOT NULL,
-  "status" BOOLEAN NULL,
+  "nombre" VARCHAR(45) NULL,
+  "id_categoria" INT NOT NULL,
+  "codigo_barras" VARCHAR(150) NULL,
+  "precio" DECIMAL(16,2) NULL,
+  "cantidad" INT NOT NULL,
+  "estado" BOOLEAN NULL,
   PRIMARY KEY ("id"),
-  CONSTRAINT "fk_products_categories"
-    FOREIGN KEY ("id_category")
-    REFERENCES categories ("id")
+  CONSTRAINT "fk_productos_categorias"
+    FOREIGN KEY ("id_categoria")
+    REFERENCES categorias ("id")
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 
@@ -30,30 +30,30 @@ CREATE TABLE  products (
 -- -----------------------------------------------------
 -- Table "CLIENTES"
 -- -----------------------------------------------------
-CREATE TABLE  customers (
+CREATE TABLE  clientes (
   "id" VARCHAR(20) NOT NULL,
-  "name" VARCHAR(40) NULL,
-  "last_name" VARCHAR(100) NULL,
-  "phone" NUMERIC NULL,
-  "address" VARCHAR(80) NULL,
-  "email" VARCHAR(70) NULL,
+  "nombre" VARCHAR(40) NULL,
+  "apellido" VARCHAR(100) NULL,
+  "telefono" NUMERIC NULL,
+  "direccion" VARCHAR(80) NULL,
+  "correo" VARCHAR(70) NULL,
   PRIMARY KEY ("id"));
 
 
 -- -----------------------------------------------------
 -- Table "COMPRAS"
 -- -----------------------------------------------------
-CREATE TABLE  buys (
+CREATE TABLE  compras (
   "id" SERIAL NOT NULL,
-  "customer_id" VARCHAR(20) NOT NULL,
-  "date" TIMESTAMP NULL,
-  "payment_method" CHAR(1) NULL,
-  "comment" VARCHAR(300) NULL,
-  "status" CHAR(1) NULL,
+  "id_cliente" VARCHAR(20) NOT NULL,
+  "fecha" TIMESTAMP NULL,
+  "metodo_pago" CHAR(1) NULL,
+  "comentario" VARCHAR(300) NULL,
+  "estado" CHAR(1) NULL,
   PRIMARY KEY ("id"),
-  CONSTRAINT "fk_buys_customers"
-    FOREIGN KEY ("customer_id")
-    REFERENCES customers ("id")
+  CONSTRAINT "fk_compras_clientes"
+    FOREIGN KEY ("id_cliente")
+    REFERENCES clientes ("id")
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 
@@ -61,20 +61,20 @@ CREATE TABLE  buys (
 -- -----------------------------------------------------
 -- Table "COMPRAS_PRODUCTOS"
 -- -----------------------------------------------------
-CREATE TABLE  buys_products (
-  "buy_id" INT NOT NULL,
-  "product_id" INT NOT NULL,
-  "amount" INT NULL,
+CREATE TABLE  compras_productos (
+  "id_compra" INT NOT NULL,
+  "id_producto" INT NOT NULL,
+  "cantidad" INT NULL,
   "total" DECIMAL(16,2) NULL,
-  "status" BOOLEAN NULL,
-  PRIMARY KEY ("buy_id", "product_id"),
-  CONSTRAINT "fk_buys_products_products"
-    FOREIGN KEY ("product_id")
-    REFERENCES products ("id")
+  "estado" BOOLEAN NULL,
+  PRIMARY KEY ("id_compra", "id_producto"),
+  CONSTRAINT "fk_compras_productos_productos"
+    FOREIGN KEY ("id_producto")
+    REFERENCES productos ("id")
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT "fk_buys_products_buys"
-    FOREIGN KEY ("buy_id")
-    REFERENCES buys ("id")
+  CONSTRAINT "fk_compras_productos_compras"
+    FOREIGN KEY ("id_compra")
+    REFERENCES compras ("id")
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);

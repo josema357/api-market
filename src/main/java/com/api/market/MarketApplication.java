@@ -1,4 +1,5 @@
-package com.market;
+
+package com.api.market;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

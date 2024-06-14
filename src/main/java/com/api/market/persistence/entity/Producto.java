@@ -1,4 +1,4 @@
-package com.market.persistence.entity;
+package com.api.market.persistence.entity;
 
 import java.math.BigDecimal;
 
@@ -14,23 +14,23 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "products")
+@Table(name = "productos")
 @Getter
 @Setter
-public class Product {
+public class Producto {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
-  private String name;
-  @Column(name = "id_category")
+  private String nombre;
+  @Column(name = "id_categoria")
   private Integer idCategory;
-  private String barcode;
-  private BigDecimal price;
-  private Integer stock;
-  private Boolean status;
+  @Column(name = "codigo_barras")
+  private String codigoBarras;
+  private BigDecimal precio;
+  private Integer cantidad;
+  private Boolean estado;
 
   @ManyToOne
-  @JoinColumn(name = "id_category" , insertable = false, updatable = false)
-  private Category category;
-
+  @JoinColumn(name = "id_categoria" , insertable = false, updatable = false)
+  private Categoria categoria;
 }
