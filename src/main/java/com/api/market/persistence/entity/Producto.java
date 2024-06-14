@@ -23,7 +23,7 @@ public class Producto {
   private Integer id;
   private String nombre;
   @Column(name = "id_categoria")
-  private Integer idCategory;
+  private Integer idCategoria;
   @Column(name = "codigo_barras")
   private String codigoBarras;
   private BigDecimal precio;
