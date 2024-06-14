@@ -8,6 +8,6 @@ import com.api.market.persistence.entity.Producto;
 
 public interface ProductoCrudRespository extends CrudRepository<Producto, Integer> {
   List<Producto> findByIdCategoria(int idCategoria);
-  List<Producto> findByIdCategoriaOrderByNameAsc(int idCategoria);
+  List<Producto> findByIdCategoriaOrderByNombreAsc(int idCategoria);
   Optional<List<Producto>> findByCantidadLessThanAndEstado(int stock, boolean status);
 }
