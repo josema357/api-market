@@ -1,6 +1,7 @@
 package com.api.market.domain.model;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -14,5 +15,5 @@ public class Buy {
   private String paymentMethod;
   private String comment;
   private String status;
-  private Customer customer;
+  private List<BuyItem> items;
 }

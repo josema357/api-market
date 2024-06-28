@@ -1,4 +1,6 @@
 package com.api.market.persistence.mapper;
+ 
+import java.util.List;
 
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
@@ -8,7 +10,7 @@ import org.mapstruct.Mappings;
 import com.api.market.domain.model.Buy;
 import com.api.market.persistence.entity.Compra;
 
-@Mapper(componentModel = "spring", uses = {CustomerMapper.class})
+@Mapper(componentModel = "spring", uses = {BuyItemMapper.class})
 public interface BuyMapper {
   @Mappings({
     @Mapping(source = "id", target = "id"),
@@ -17,11 +19,13 @@ public interface BuyMapper {
     @Mapping(source = "metodoPago", target = "paymentMethod"),
     @Mapping(source = "comentario", target = "comment"),
     @Mapping(source = "estado", target = "status"),
-    @Mapping(source = "cliente", target = "customer")
+    @Mapping(source = "productos", target = "items")
   })
-  Buy toDomainBuy(Compra compra);
+  Buy toBuy(Compra compra);
+
+  List<Buy> toBuys(List<Compra> compras);
 
   @InheritInverseConfiguration
-  @Mapping(target = "productos", ignore = true)
-  Compra toBuy(Buy buy);
+  @Mapping(target = "cliente", ignore = true)
+  Compra toCompra(Buy buy);
 }

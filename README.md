@@ -15,7 +15,7 @@ Entities:<br>
 `productos`<br>
 `categorias`<br>
 `compras`<br>
-`compras_croductos`<br>
+`compras_productos`<br>
 
 ### BD diagram
 

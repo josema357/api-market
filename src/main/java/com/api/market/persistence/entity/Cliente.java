@@ -20,7 +20,7 @@ public class Cliente {
   private String id;
   private String nombre;
   private String apellido;
-  private Integer telefono;
+  private Long telefono;
   private String direccion;
   private String correo;
 

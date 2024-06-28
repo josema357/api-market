@@ -29,7 +29,7 @@ public class ProductController {
     this.productService = productService;
   }
   
-  @GetMapping("/")
+  @GetMapping("")
   public ResponseEntity<List<Product>> getAll(){
     return new ResponseEntity<>(productService.getAll(), HttpStatus.OK);
   }
