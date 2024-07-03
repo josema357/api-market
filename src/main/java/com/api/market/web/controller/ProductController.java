@@ -13,10 +13,19 @@ import org.springframework.web.bind.annotation.RestController;
 import com.api.market.domain.model.Product;
 import com.api.market.domain.service.ProductService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.media.SchemaProperty;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 import java.util.List;
 
 @RequestMapping("/products")
 @RestController
+@Tag(name = "Product")
 public class ProductController {
   private ProductService productService;
 
@@ -30,31 +39,44 @@ public class ProductController {
   }
   
   @GetMapping("")
+  @Operation(description = "Search all products")
+  @ApiResponse(responseCode = "200" , description = "OK")
   public ResponseEntity<List<Product>> getAll(){
     return new ResponseEntity<>(productService.getAll(), HttpStatus.OK);
   }
 
   @GetMapping("/{id}")
-  public ResponseEntity<Product> getProduct(@PathVariable("id") int productId){
+  @Operation(description = "Search a product with an ID")
+  @ApiResponses({
+    @ApiResponse(responseCode = "200", description = "OK"),
+    @ApiResponse(responseCode = "404", description = "NOT_FOUND")
+  })
+  public ResponseEntity<Product> getProduct(@Parameter(description = "The ID of the product", required = true) @PathVariable("id") int productId){
     return productService.getProduct(productId)
       .map(product -> new ResponseEntity<>(product, HttpStatus.OK))
       .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
   }
 
   @GetMapping("/category/{categoryId}")
-  public ResponseEntity<List<Product>> getByCategory(@PathVariable("categoryId") int categoryId){
+  @Operation(description = "Search a product by caterogy")
+  @ApiResponses({
+    @ApiResponse(responseCode = "200", description = "OK"),
+    @ApiResponse(responseCode = "404", description = "NOT_FOUND")
+  })
+  public ResponseEntity<List<Product>> getByCategory(@Parameter(description = "The ID of the category", required = true) @PathVariable("categoryId") int categoryId){
     return productService.getByCategory(categoryId)
       .map(products -> new ResponseEntity<>(products, HttpStatus.OK))
       .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
   }
 
   @PostMapping("/save")
+  @Operation(description = "Create a product")
   public ResponseEntity<Product> save(@RequestBody Product product){
     return new ResponseEntity<>(productService.save(product), HttpStatus.CREATED);
   }
 
   @DeleteMapping("/delete/{id}")
-  public ResponseEntity<?> delete(@PathVariable("id") int productId){
+  public ResponseEntity<?> delete(@Parameter(description = "The ID of the product", required = true) @PathVariable("id") int productId){
     if(productService.delete(productId)){
       return new ResponseEntity<>(HttpStatus.OK);
     }else{
